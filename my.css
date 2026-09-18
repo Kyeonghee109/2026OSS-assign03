@@ -1,0 +1,284 @@
+/* ==========================================================================
+   1. Global Root Variables & Reset
+   ========================================================================== */
+:root {
+  --primary-color: #4f46e5;       /* 트렌디한 인디고 블루 */
+  --primary-hover: #4338ca;
+  --income-color: #10b981;        /* 수입: 에메랄드 그린 */
+  --expense-color: #ef4444;       /* 지출: 코랄 레드 */
+  --bg-color: #f8fafc;            /* 소프트 슬레이트 배경 */
+  --card-bg: #ffffff;
+  --text-primary: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   2. Page Layout & Wrapper
+   ========================================================================== */
+.main-wrapper {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* ==========================================================================
+   3. Header & Navigation
+   ========================================================================== */
+.navbar {
+  background-color: var(--card-bg) !important;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.85rem 0;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--primary-color) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--text-muted) !important;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+/* ==========================================================================
+   4. Card Component (대시보드 요약 및 Form 감싸기)
+   ========================================================================== */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* 수입/지출 카드 대시보드 커스텀 */
+.stat-card {
+  border-left: 4px solid var(--border-color);
+}
+.stat-card.income { border-left-color: var(--income-color); }
+.stat-card.expense { border-left-color: var(--expense-color); }
+
+.stat-amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.stat-amount.income { color: var(--income-color); }
+.stat-amount.expense { color: var(--expense-color); }
+
+/* ==========================================================================
+   5. Form Controls (Input, Select, Textarea)
+   ========================================================================== */
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 0.85rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  outline: none;
+}
+
+/* 필수 입력 마크 (*) */
+.required-mark {
+  color: var(--expense-color);
+  margin-left: 2px;
+}
+
+/* Validation 에러 메세지 스타일 */
+.invalid-feedback {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+/* ==========================================================================
+   6. Buttons (CRUD 주요 액션 버튼)
+   ========================================================================== */
+.btn {
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-outline-secondary {
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f1f5f9;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* ==========================================================================
+   7. Table / List (가계부 목록)
+   ========================================================================== */
+.table-responsive {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.table {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+
+.table thead th {
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f8fafc;
+  cursor: pointer;
+}
+
+/* 뱃지 스타일 (수입/지출, 카테고리) */
+.badge-income {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--income-color);
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: 6px;
+}
+
+.badge-expense {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--expense-color);
+  font-weight: 600;
+  padding: 0.35em 0.65em;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   8. Footer
+   ========================================================================== */
+footer {
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  margin-top: auto;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   9. Responsive Web Design (RWD Media Queries)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .main-wrapper {
+    padding-top: 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+
+  .stat-amount {
+    font-size: 1.35rem;
+  }
+
+  .btn {
+    width: 100%; /* 모바일에서 버튼 너비 전체 차지 */
+    margin-bottom: 0.5rem;
+  }
+
+  /* 테이블 글자 크기 및 패딩 조절 */
+  .table tbody td, .table thead th {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
