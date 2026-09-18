@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스마트 개인 가계부 - 내역 수정</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="my.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">💰 SmartLedger</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">대시보드</a></li>
+          <li class="nav-item"><a class="nav-link" href="add.html">내역 추가</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="main-wrapper">
+    <div class="container" style="max-width: 680px;">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+          <h5 class="fw-bold m-0">✏️ 입출금 내역 수정</h5>
+        </div>
+        <div class="card-body p-4">
+          
+          <form id="edit-form" novalidate>
+            <div class="mb-3">
+              <label for="date" class="form-label">거래일자 <span class="required-mark">*</span></label>
+              <input type="date" class="form-control" id="date" value="2026-09-02" required>
+              <div class="invalid-feedback">거래일자를 선택해 주세요.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">구분 <span class="required-mark">*</span></label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="type-expense" value="expense" checked>
+                <label class="form-check-label text-danger fw-bold" for="type-expense">지출</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="type" id="type-income" value="income">
+                <label class="form-check-label text-success fw-bold" for="type-income">수입</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="title" class="form-label">내역명 <span class="required-mark">*</span></label>
+              <input type="text" class="form-control" id="title" value="점심 식사 (김치찌개)" required>
+              <div class="invalid-feedback">내역명을 입력해 주세요. (최소 2자 이상)</div>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">카테고리 <span class="required-mark">*</span></label>
+              <select class="form-select" id="category" required>
+                <option value="" disabled>카테고리를 선택하세요</option>
+                <option value="식비" selected>식비</option>
+                <option value="교통">교통</option>
+                <option value="쇼핑/교양">쇼핑/교양</option>
+                <option value="주거/통신">주거/통신</option>
+                <option value="급여">급여</option>
+                <option value="기타">기타</option>
+              </select>
+              <div class="invalid-feedback">카테고리를 선택해 주세요.</div>
+            </div>
+            <div class="mb-3">
+              <label for="amount" class="form-label">금액 (원) <span class="required-mark">*</span></label>
+              <input type="number" class="form-control" id="amount" value="10000" min="1" required>
+              <div class="invalid-feedback">1원 이상의 올바른 금액을 입력해 주세요.</div>
+            </div>
+            <div class="mb-3">
+              <label for="method" class="form-label">결제수단 <span class="required-mark">*</span></label>
+              <select class="form-select" id="method" required>
+                <option value="" disabled>결제수단을 선택하세요</option>
+                <option value="신용카드">신용카드</option>
+                <option value="체크카드" selected>체크카드</option>
+                <option value="계좌이체">계좌이체</option>
+                <option value="현금">현금</option>
+              </select>
+              <div class="invalid-feedback">결제수단을 선택해 주세요.</div>
+            </div>
+            <div class="mb-4">
+              <label for="memo" class="form-label">메모 (선택)</label>
+              <textarea class="form-control" id="memo" rows="3">팀원들과 점심 식사로 강남식당에서 김치찌개 결제함.</textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <a href="view.html" class="btn btn-outline-secondary">취소</a>
+              <button type="submit" class="btn btn-primary">수정 완료</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="text-center">
+    <div class="container">
+      <p class="mb-0">© 2026 SmartLedger. Frontend CRUD Service Project.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('edit-form').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const date = document.getElementById('date');
+      const title = document.getElementById('title');
+      const category = document.getElementById('category');
+      const amount = document.getElementById('amount');
+      const method = document.getElementById('method');
+
+      let isValid = true;
+      if (!date.value) {
+        date.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        date.classList.remove('is-invalid');
+        date.classList.add('is-valid');
+      }
+
+      if (!title.value.trim() || title.value.trim().length < 2) {
+        title.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        title.classList.remove('is-invalid');
+        title.classList.add('is-valid');
+      }
+      if (!category.value) {
+        category.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        category.classList.remove('is-invalid');
+        category.classList.add('is-valid');
+      }
+      if (!amount.value || Number(amount.value) <= 0) {
+        amount.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        amount.classList.remove('is-invalid');
+        amount.classList.add('is-valid');
+      }
+
+      if (!method.value) {
+        method.classList.add('is-invalid');
+        isValid = false;
+      } else {
+        method.classList.remove('is-invalid');
+        method.classList.add('is-valid');
+      }
+      if (isValid) {
+        const isConfirmed = confirm('수정한 내용을 저장하시겠습니까?');
+        if (isConfirmed) {
+          alert('게시물이 수정되었습니다.');
+          window.location.href = 'index.html'; 
+        }
+      }
+    });
+  </script>
+</body>
+</html>
